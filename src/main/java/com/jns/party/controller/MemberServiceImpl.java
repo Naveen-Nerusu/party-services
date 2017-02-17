@@ -40,6 +40,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public PartyMember getPartyMember(Integer id) {
 		PartyMember user = memberRepository.findOne(id);
+		
+		System.out.println(user.getConstituency());
 		return user;
 	}
 

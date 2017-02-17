@@ -7,7 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class PartyMember {
@@ -21,6 +23,17 @@ public class PartyMember {
 	private String emailId;
 
 	private AssemblyConstituency constituency;
+	
+	public PartyMember() {
+
+	}
+
+	public PartyMember(String name, String phoneNumber, String emailId, AssemblyConstituency constituency) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.emailId = emailId;
+		this.constituency = constituency;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,8 +45,9 @@ public class PartyMember {
 		this.id = id;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "constituency_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "constituencyID")
+	@JsonBackReference
 	public AssemblyConstituency getConstituency() {
 		return constituency;
 	}
